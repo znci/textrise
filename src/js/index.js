@@ -6,8 +6,6 @@ style.innerHTML = `
 		white-space: nowrap;
 		text-align: center;
 		height: fit-content;
-		font-size: 2rem;
-		font-family: "Roboto", sans-serif;
 	}
 	@keyframes rising-text {
 		from {
