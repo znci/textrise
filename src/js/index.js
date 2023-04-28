@@ -1,4 +1,22 @@
 
+const style = document.createElement("style");
+style.innerHTML = `
+	.rising-text {
+		overflow: hidden;
+		white-space: nowrap;
+		text-align: center;
+		height: fit-content;
+	}
+	@keyframes rising-text {
+		from {
+			transform: translate3d(0, 25px, 0);
+			opacity: 0;
+		}
+		to {
+			transform: none;
+			opacity: 1
+		}
+	}
 let baseStyle = `
 .rising-text {
 	overflow: hidden;
