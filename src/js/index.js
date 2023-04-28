@@ -1,31 +1,34 @@
 
-const style = document.createElement("style");
-style.innerHTML = `
-	.rising-text {
-		overflow: hidden;
-		white-space: nowrap;
-		text-align: center;
-		height: fit-content;
-		font-size: 2rem;
-		font-family: "Roboto", sans-serif;
+let baseStyle = `
+.rising-text {
+	overflow: hidden;
+	white-space: nowrap;
+	text-align: center;
+	height: fit-content;
+	font-size: 2rem;
+	font-family: "Roboto", sans-serif;
+}
+@keyframes rising-text {
+	from {
+		transform: translate3d(0, 25px, 0);
+		opacity: 0;
 	}
-	@keyframes rising-text {
-		from {
-			transform: translate3d(0, 25px, 0);
-			opacity: 0;
-		}
-		to {
-			transform: none;
-			opacity: 1
-		}
+	to {
+		transform: none;
+		opacity: 1
 	}
+}
 `
+
+const style = document.createElement("style");
+style.innerHTML = baseStyle;
 document.head.appendChild(style);
 
 document.querySelectorAll(".rising-text").forEach((v) => {
 	let att = v.attributes;
 	let type = att.getNamedItem("data-type").value;
 	let activate = att.getNamedItem("data-activate").value;
+	let duration = parseFloat(att.getNamedItem("data-duration").value) || 0.2;
 
 	const types = ["word", "char"];
 	if(!types.includes(type)) throw new Error("Invalid type");
@@ -33,10 +36,10 @@ document.querySelectorAll(".rising-text").forEach((v) => {
 	const activateTypes = ["hover", "click", "onload"];
 	if(!activateTypes.includes(activate)) throw new Error("Invalid activate type");
 
-	let duration = 0.2;
 	function animate() {
 		if(type === "word") {
 			const split = v.innerText.split(" ");
+			style.innerHTML = baseStyle;
 
 			split.forEach((e, i) => {
 				style.innerHTML += `
